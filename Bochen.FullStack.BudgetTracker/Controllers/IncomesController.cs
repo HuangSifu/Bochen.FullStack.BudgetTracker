@@ -12,22 +12,22 @@ namespace Bochen.FullStack.BudgetTracker.Controllers
     public class IncomesController : Controller
     {
         private readonly IIncomeService _incomeService;
+        private readonly ICurrentUserService _currentUserService;
 
-        public IncomesController(IIncomeService incomeService)
+        public IncomesController(IIncomeService incomeService, ICurrentUserService currentUserService)
         {
             _incomeService = incomeService;
+            _currentUserService = currentUserService;
         }
 
-
-
         [HttpGet]
-        public IActionResult Add(int id)
+        public IActionResult Add()
         {
-            var addIncome = new IncomeRequestModel
+            if (_currentUserService.IsAuthenticated == false)
             {
-                UserId = id,
-            };
-            return View(addIncome);
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> Add(IncomeRequestModel model)
@@ -36,26 +36,39 @@ namespace Bochen.FullStack.BudgetTracker.Controllers
             return LocalRedirect("~/");
         }
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public IActionResult Update()
         {
-            var income = await _incomeService.GetIncomeById(id);
-
-            var addIncome = new IncomeRequestModel
+            if (_currentUserService.IsAuthenticated == false)
             {
-                UserId = income.UserId,
-                Amount = (decimal)income.Amount,
-                Description = income.Description,
-                IncomeDate = income.IncomeDate.GetValueOrDefault(),
-                Remarks = income.Remarks,
-            };
-            return View(addIncome);
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> Update(IncomeRequestModel model)
         {
-            var income = await _incomeService.UpdateIncome(model);
+            await _incomeService.UpdateIncome(model);
             return LocalRedirect("~/");
         }
-       
+
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            if (_currentUserService.IsAuthenticated == false)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
+        }
+       [HttpPost]
+       public async Task<IActionResult> Delete(int id)
+        {
+            var deleteIncome = new IncomeRequestModel()
+            {
+                Id = id
+            };
+            await _incomeService.DeleteIncome(deleteIncome);
+            return LocalRedirect("~/");
+        }
     }
 }

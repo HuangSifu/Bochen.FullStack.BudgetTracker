@@ -12,7 +12,7 @@ namespace ApplicationCore.ServiceInterfaces
     {
         Task<IncomeResponseModel> AddIncome(IncomeRequestModel incomeRequest);
         Task<IncomeResponseModel> UpdateIncome(IncomeRequestModel incomeRequest);
-        Task<IncomeResponseModel> DeleteIncome(int id);
+        Task<IncomeResponseModel> DeleteIncome(IncomeRequestModel incomeRequestModel);
         Task<IncomeResponseModel> GetIncomeById(int id);
         Task<IEnumerable<IncomeResponseModel>> ListAllIncomesByUser(int id);
         Task<IEnumerable<IncomeResponseModel>> ListAllIncomes();

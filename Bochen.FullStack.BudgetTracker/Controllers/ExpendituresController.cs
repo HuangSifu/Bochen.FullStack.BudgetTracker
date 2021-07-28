@@ -11,20 +11,22 @@ namespace Bochen.FullStack.BudgetTracker.Controllers
     public class ExpendituresController : Controller
     {
         private readonly IExpenditureService _expenditureService;
+        private readonly ICurrentUserService _currentUserService;
 
-        public ExpendituresController(IExpenditureService expenditureService)
+        public ExpendituresController(IExpenditureService expenditureService, ICurrentUserService currentUserService)
         {
             _expenditureService = expenditureService;
+            _currentUserService = currentUserService;
         }
 
         [HttpGet]
-        public IActionResult Add(int id)
+        public IActionResult Add()
         {
-            var addIncome = new IncomeRequestModel
+            if(_currentUserService.IsAuthenticated == false)
             {
-                UserId = id,
-            };
-            return View(addIncome);
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> Add(ExpenditureRequestModel model)
@@ -33,13 +35,13 @@ namespace Bochen.FullStack.BudgetTracker.Controllers
             return LocalRedirect("~/");
         }
         [HttpGet]
-        public IActionResult Update(int id)
+        public IActionResult Update()
         {
-            var addIncome = new IncomeRequestModel
+            if (_currentUserService.IsAuthenticated == false)
             {
-                UserId = id,
-            };
-            return View(addIncome);
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> Update(ExpenditureRequestModel model)

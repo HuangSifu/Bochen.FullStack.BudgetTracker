@@ -106,10 +106,10 @@ namespace Infrastructure.Services
             };
             return response;
         }
-        public async Task<IncomeResponseModel> DeleteIncome(int id)
+        public async Task<IncomeResponseModel> DeleteIncome(IncomeRequestModel incomeRequestModel)
         {
-            var expenditure = await _incomeRepository.GetByIdAsync(id);
-            var delete = await _incomeRepository.DeleteAsync(expenditure);
+            var incomes = await _incomeRepository.GetByIdAsync(incomeRequestModel.Id);
+            var delete = await _incomeRepository.DeleteAsync(incomes);
             var response = new IncomeResponseModel
             {
                 Amount = delete.Amount,
@@ -126,7 +126,6 @@ namespace Infrastructure.Services
             var response = new IncomeResponseModel
             {
                 Id = income.Id,
-                UserId = income.UserId,
                 Amount = income.Amount,
                 Description = income.Description,
                 IncomeDate = income.IncomeDate,

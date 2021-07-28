@@ -26,20 +26,16 @@ namespace Bochen.FullStack.BudgetTracker.Controllers
             return View(user);
         }
         
-        [HttpGet]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var user = await _userService.GetUserById(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
-        }
-        [HttpPost]
+        //[HttpGet]
+        //public IActionResult Delete()
+        //{
+           
+        //    return View();
+        //}
+        //[HttpPost]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var deletUser = await _userService.DeleteUser(id);
+            await _userService.DeleteUser(id);
             return LocalRedirect("~/");
         }
     }
