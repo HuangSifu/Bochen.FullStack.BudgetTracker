@@ -1,0 +1,93 @@
+﻿@model ApplicationCore.Models.Response.UserDetailsResponseModel
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div>
+    <div class="row">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-4" class="text-center">
+            <div class="row">
+                <h3>@Model.Fullname</h3>
+            </div>
+            <div class="row">
+                <h4><span>@Model.Email</span></h4>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div>
+    <div class="greenTable">
+        <h5 class="center">Incomes</h5>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Remarks</th>
+                </tr>
+            
+            </thead>
+            <tbody>
+                @foreach (var income in Model.Incomes)
+                {
+                <tr>
+                    <td>@income.Id</td>
+                    <td>&#36;@income.Amount</td>
+                    <td>@income.Description</td>
+                    <td>@income.IncomeDate</td>
+                    <td>@income.Remarks</td>
+                    <td>
+                        <button asp-controller="Incomes" asp-action="Add" type="button" class="btn btn-info">Add</button>
+                        <button asp-controller="Incomes" asp-action="Update" type="button" class="btn btn-warning">Update</button>
+                        <button asp-controller="Incomes" asp-action="Delete" type="button" class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <div class="redTable">
+        <h5 class="center">Expenditures</h5>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Remarks</th>
+                </tr>
+            
+            </thead>
+            <tbody>
+                @foreach (var exp in Model.Expenditures)
+                {
+                <tr>
+                    <td>@exp.Id</td>
+                    <td>&#36;@exp.Amount</td>
+                    <td>@exp.Description</td>
+                    <td>@exp.ExpDate</td>
+                    <td>@exp.Remarks</td>
+                    <td>
+                        <button asp-controller="Expenditures" asp-action="Add" type="button" class="btn btn-info">Add</button>
+                        <button asp-controller="Expenditures" asp-action="Update" type="button" class="btn btn-warning">Update</button>
+                        <button asp-controller="Expenditures" asp-action="Delete" type="button" class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
