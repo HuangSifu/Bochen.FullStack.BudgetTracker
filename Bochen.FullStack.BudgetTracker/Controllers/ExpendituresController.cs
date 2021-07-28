@@ -62,7 +62,7 @@ namespace Bochen.FullStack.BudgetTracker.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(ExpenditureRequestModel model)
         {
-            var income = await _expenditureService.DeleteExpenditure(model);
+            await _expenditureService.DeleteExpenditure(model);
             return LocalRedirect("~/");
         }
     }

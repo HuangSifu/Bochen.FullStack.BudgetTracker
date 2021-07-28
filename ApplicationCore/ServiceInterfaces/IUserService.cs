@@ -13,8 +13,8 @@ namespace ApplicationCore.ServiceInterfaces
         Task<UserResponseModel> Login(string email, string password);
         Task<UserResponseModel> RegisterUser(UserRegisterRequestModel registerRequest);
         Task<UserResponseModel> GetUserById(int id);
-        Task<UserResponseModel> UpdateUser(UserRegisterRequestModel userUpdateRequest, int id);
-        Task<UserResponseModel> DeleteUser(int id);
+        Task<UserResponseModel> UpdateUser(UserUpdateRequestModel userUpdateRequest);
+        Task<UserResponseModel> DeleteUser(UserUpdateRequestModel model);
         Task<List<UserResponseModel>> ListAllUsers();
         Task<UserDetailsResponseModel> GetUserDetailsById(int id);
     }

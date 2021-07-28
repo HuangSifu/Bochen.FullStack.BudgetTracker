@@ -13,12 +13,12 @@ namespace Bochen.FullStack.BudgetTracker.Controllers
     public class UsersController : Controller
     {
         private readonly IUserService _userService;
-        
-        private readonly IExpenditureService _expenditureService;
-        public UsersController(IUserService userService, IExpenditureService expenditureService)
+        private readonly ICurrentUserService _currentUserService;
+
+        public UsersController(IUserService userService, ICurrentUserService currentUserService)
         {
             _userService = userService;
-            _expenditureService = expenditureService;
+            _currentUserService = currentUserService;
         }
         public async Task<IActionResult> Details(int id)
         {
@@ -29,13 +29,31 @@ namespace Bochen.FullStack.BudgetTracker.Controllers
         [HttpGet]
         public IActionResult Delete()
         {
-
+            if (_currentUserService.IsAuthenticated == false)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(UserUpdateRequestModel model)
         {
-            await _userService.DeleteUser(id);
+            await _userService.DeleteUser(model);
+            return LocalRedirect("~/");
+        }
+        [HttpGet]
+        public IActionResult Update()
+        {
+            if (_currentUserService.IsAuthenticated == false)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(UserUpdateRequestModel model)
+        {
+            await _userService.UpdateUser(model);
             return LocalRedirect("~/");
         }
     }

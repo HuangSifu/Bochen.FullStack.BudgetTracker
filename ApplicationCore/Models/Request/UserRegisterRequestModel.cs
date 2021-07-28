@@ -41,5 +41,6 @@ namespace ApplicationCore.Models.Request
             ErrorMessage = "Password should have minimum of 8 characters and should include one upper, lower number and a special character")]
         public string Password { get; set; }
         public string Fullname { get; set; }
+        public DateTime? JoinedOn { get; set; }
     }
 }

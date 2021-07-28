@@ -48,14 +48,14 @@ namespace Infrastructure.Services
             return null;
         }
 
-        public async Task<UserResponseModel> DeleteUser(int id)
+        public async Task<UserResponseModel> DeleteUser(UserUpdateRequestModel model)
         {
-            var user = await _userRepository.GetUserById(id);
+            var user = await _userRepository.GetUserById(model.Id);
             var delete = await _userRepository.DeleteAsync(user);
 
             var response = new UserResponseModel()
             {
-                Id = delete.Id,
+                Email = delete.Email,
                 Fullname = delete.Fullname
             };
             return response;
@@ -129,7 +129,7 @@ namespace Infrastructure.Services
             return response;
         }
 
-        public async Task<UserResponseModel> UpdateUser(UserRegisterRequestModel userUpdateRequest, int id)
+        public async Task<UserResponseModel> UpdateUser(UserUpdateRequestModel userUpdateRequest)
         {
             var dbUser = await _userRepository.GetUserByEmail(userUpdateRequest.Email);
 

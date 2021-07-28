@@ -61,13 +61,9 @@ namespace Bochen.FullStack.BudgetTracker.Controllers
             return View();
         }
        [HttpPost]
-       public async Task<IActionResult> Delete(int id)
+       public async Task<IActionResult> Delete(IncomeRequestModel model)
         {
-            var deleteIncome = new IncomeRequestModel()
-            {
-                Id = id
-            };
-            await _incomeService.DeleteIncome(deleteIncome);
+            await _incomeService.DeleteIncome(model);
             return LocalRedirect("~/");
         }
     }
