@@ -62,6 +62,7 @@ namespace Infrastructure.Services
         {
             var expenditure = new Expenditure
             {
+                Id = expenditureRequest.Id,
                 UserId = expenditureRequest.UserId,
                 Amount = expenditureRequest.Amount,
                 Description = expenditureRequest.Description,
@@ -71,8 +72,6 @@ namespace Infrastructure.Services
             var updatedExpenditure = await _expenditureRepository.UpdateAsync(expenditure);
             var response = new ExpenditureResponseModel
             {
-                Id = updatedExpenditure.Id,
-                UserId = updatedExpenditure.UserId,
                 Amount = updatedExpenditure.Amount,
                 Description = updatedExpenditure.Description,
                 ExpDate = updatedExpenditure.ExpDate,

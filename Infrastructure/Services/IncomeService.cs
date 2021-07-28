@@ -88,6 +88,7 @@ namespace Infrastructure.Services
         {
             var income = new Income
             {
+                Id = incomeRequest.Id,
                 UserId = incomeRequest.UserId,
                 Amount = incomeRequest.Amount,
                 Description = incomeRequest.Description,
@@ -97,8 +98,6 @@ namespace Infrastructure.Services
             var updatedIncome = await _incomeRepository.UpdateAsync(income);
             var response = new IncomeResponseModel
             {
-                Id = updatedIncome.Id,
-                UserId = updatedIncome.UserId,
                 Amount = updatedIncome.Amount,
                 Description = updatedIncome.Description,
                 IncomeDate = updatedIncome.IncomeDate,
