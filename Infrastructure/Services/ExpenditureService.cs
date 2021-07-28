@@ -43,9 +43,9 @@ namespace Infrastructure.Services
             return response;
         }
 
-        public async Task<ExpenditureResponseModel> DeleteExpenditure(int id)
+        public async Task<ExpenditureResponseModel> DeleteExpenditure(ExpenditureRequestModel expenditureRequest)
         {
-            var expenditure = await _expenditureRepository.GetByIdAsync(id);
+            var expenditure = await _expenditureRepository.GetByIdAsync(expenditureRequest.Id);
             var delete = await _expenditureRepository.DeleteAsync(expenditure);
             var response = new ExpenditureResponseModel
             {

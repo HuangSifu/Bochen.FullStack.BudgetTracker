@@ -11,7 +11,7 @@ namespace ApplicationCore.ServiceInterfaces
     public interface IExpenditureService
     {
         Task<ExpenditureResponseModel> AddExpenditure(ExpenditureRequestModel expenditureRequest);
-        Task<ExpenditureResponseModel> DeleteExpenditure(int id);
+        Task<ExpenditureResponseModel> DeleteExpenditure(ExpenditureRequestModel expenditureRequest);
         Task<ExpenditureResponseModel> UpdateExpenditure(ExpenditureRequestModel expendituRequest);
         Task<IEnumerable<ExpenditureResponseModel>> ListAllExpendituresByUser(int id);
         Task<IEnumerable<ExpenditureResponseModel>> ListAllExpenditures();

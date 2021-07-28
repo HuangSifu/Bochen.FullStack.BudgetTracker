@@ -50,6 +50,20 @@ namespace Bochen.FullStack.BudgetTracker.Controllers
             return LocalRedirect("~/");
         }
 
-        
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            if (_currentUserService.IsAuthenticated == false)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(ExpenditureRequestModel model)
+        {
+            var income = await _expenditureService.DeleteExpenditure(model);
+            return LocalRedirect("~/");
+        }
     }
 }
